@@ -5,6 +5,7 @@
 
 .boxInput {
     padding: .8rem 0rem .6rem 1rem;
+    border-radius: 5px;
     background: linear-gradient(-90deg, rgba(255,0,0,.4), rgba(255,0,255,.5));
     box-shadow: 0px 0px 5px black;
     width: 45rem;
@@ -13,13 +14,17 @@
 
 .inputBox {
     width: 79%;
+    border-radius: 5px;
     justify-self: start;
 }
 
 .inputSubmit {
-    font-size: 1.5rem;
-    margin: 0rem 0rem 0rem .5rem;
+    font-family: FontforStyle;
+    font-size: 1.7rem;
+    border-radius: 5px;
+    margin: 0rem .5rem 0rem .5rem;
     padding: .4rem 1.5rem;
+    border:.1px solid rgba(255,0,255,.1);
     background-color: rgba(255,255,255,.3);
     box-shadow: 0px 0px 5px rgba(0,0,0,.8);
     transition: all .5s;
@@ -28,7 +33,15 @@
 
 .inputSubmit:hover {
     background-color: rgba(255,255,255,.6);
+    border-radius: 10px;
     box-shadow: 0px 0px 5px rgba(0,0,0,1);
-    scale: 1.1;
     cursor: pointer;
+}
+
+.inputSubmit:active {
+    color: white;
+    background-color: rgba(0,0,0,1);
+    scale:1.0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px rgba(0,0,0,1);
 }

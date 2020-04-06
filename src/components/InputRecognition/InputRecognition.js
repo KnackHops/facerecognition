@@ -1,7 +1,7 @@
 import React from 'react';
 import './InputRecognition.css';
 
-const inputRecognition = () => {
+const inputRecognition = ( { onInputChange, onButtonSubmit } ) => {
     return (
         <div>
             <div className="center labelInput">
@@ -9,10 +9,18 @@ const inputRecognition = () => {
             </div>
             <div className = "center">
                 <div className = "boxInput">
-                    <input type={Text} className="inputBox"/>
-                    <div className= "inputSubmit">
+                    {/** INPUT BOX */ }
+                    <input
+                    className="inputBox"
+                    onChange={onInputChange}
+                    />
+                    {/** BUTTON */ }
+                    <button 
+                    className= "inputSubmit"
+                    onClick={onButtonSubmit}
+                    >
                         {"Detect"}
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
