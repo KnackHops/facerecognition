@@ -40,8 +40,25 @@ class App extends Component {
     super();
     this.state = {
       input: "",
-      inputURL: ""
+      inputURL: "",
+      box: {}
     }
+  }
+
+  calculateDataImage = ({top_row, left_col, right_col, bottom_row}) => {
+    const imageDisplay = document.getElementById("faceDisplay");
+    const imHeight = Number(imageDisplay.height);
+    const imWidth = Number(imageDisplay.width);
+    return {
+      topRow: top_row * imHeight,
+      leftCol: left_col * imWidth,
+      rightCol: imWidth - (right_col * imWidth),
+      bottomRow: imHeight - (bottom_row * imHeight)
+    }
+  }
+
+  displayFaceRecognition = (box) => {
+    this.setState({box});
   }
 
   onInputChange = (event) => {
@@ -52,13 +69,10 @@ class App extends Component {
     this.setState({inputURL: this.state.input})
 
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
-      function(response) {
-        console.log(response.rawData.outputs[0].data.regions[0].region_info.bounding_box)
-      },
-      function(err) {
-        console.log(err)
-      }
-    );
+      (response) => {
+        this.displayFaceRecognition(this.calculateDataImage(response.rawData.outputs[0].data.regions[0].region_info.bounding_box))
+    }
+      ).catch(err => console.log(err));
   }
 
   render() {
@@ -69,7 +83,7 @@ class App extends Component {
         <Logo />
         <Rank />
         <InputRecognition onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-        <FaceRecognition inputURL={this.state.inputURL}/>
+        <FaceRecognition inputURL={this.state.inputURL} box={this.state.box}/>
       </div>
     )
   }
