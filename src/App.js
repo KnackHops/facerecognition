@@ -52,13 +52,11 @@ class App extends Component {
     this.setState({inputURL: this.state.input})
 
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
-      function(response) {
+      (response) => {
         console.log(response.rawData.outputs[0].data.regions[0].region_info.bounding_box)
-      },
-      function(err) {
-        console.log(err)
-      }
-    );
+      }).catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
