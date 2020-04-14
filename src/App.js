@@ -6,6 +6,8 @@ import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import InputRecognition from './components/InputRecognition/InputRecognition';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import Signin from './components/Signin/Signin';
+import Register from './components/Register/Register';
 import './App.css';
 
 
@@ -41,7 +43,9 @@ class App extends Component {
     this.state = {
       input: "",
       inputURL: "",
-      box: {}
+      box: {},
+      route: "signin",
+      isSignedin: false
     }
   }
 
@@ -75,15 +79,36 @@ class App extends Component {
       ).catch(err => console.log(err));
   }
 
+  onRouteChange = (route) => {
+    if(route==="home"){
+      this.setState({isSignedin: true})
+    } else {
+      this.setState({isSignedin: false})
+    }
+
+    this.setState({route});
+  }
+
   render() {
+    const {inputURL, box, route,isSignedin } = this.state;
     return (
       <div>
         <Particles className={classNameForParticool} params={paramsForParticool}/>
-        <Navigation />
+        <Navigation isSignedin={isSignedin} onRouteChange={this.onRouteChange} route={route} />
+        {
+        route==="signin" ?
+          <Signin onRouteChange={this.onRouteChange}/>
+        : (route==="register" ?
+        <Register onRouteChange={this.onRouteChange}/> :
+        <React.Fragment>
         <Logo />
         <Rank />
         <InputRecognition onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-        <FaceRecognition inputURL={this.state.inputURL} box={this.state.box}/>
+        <FaceRecognition inputURL={inputURL} box={box}/>
+      </React.Fragment>
+    )
+          
+      }
       </div>
     )
   }
