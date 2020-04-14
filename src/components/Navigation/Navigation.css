@@ -5,23 +5,34 @@ nav {
     padding-right: 1em;
 }
 
+.signInNav {
+    display:flex;
+    flex-wrap: wrap;
+}
+
 .boxLink {
-    padding: .5rem .5rem;
-    background-color: rgba(255,255,255,.2);
-    border-radius: 5px;
-    font-size: 1.7rem;
+    padding: .5rem 1rem;
+    margin: 0 .25rem;
+    background-color: rgba(255,255,255,.95);
+    font-size: 1.75rem;
     box-shadow: 1px 1px 5px rgba(0,0,0,.4);
     transition: all .5s;
 }
 
 .boxLink:hover {
-    background-color: rgba(255,255,255,.6);
-    border-radius: 10px;
+    background-color: rgba(0,0,0,.8);
+    color:white;
+    cursor: pointer;
     box-shadow: 1px 1px 5px rgba(0,0,0,.8);
-    scale: 1.1;
 }
 
-a {
-    color: black;
+.inactiveboxLink {
+    padding: .5rem 1rem;
+    margin: 0 .25rem;
+    background-color: rgba(0,0,0,.95);
+    color: white;
+    font-size: 1.75rem;
+    box-shadow: 1px 1px 5px rgba(0,0,0,.4);
 }
+
 
