@@ -61,11 +61,11 @@ class App extends Component {
     }
   }
 
-  displayFaceRecognition = (box) => {
+  displayFaceRecognition = box => {
     this.setState({box});
   }
 
-  onInputChange = (event) => {
+  onInputChange = event => {
     this.setState({input: event.target.value})
   }
 
@@ -79,7 +79,7 @@ class App extends Component {
       ).catch(err => console.log(err));
   }
 
-  onRouteChange = (route) => {
+  onRouteChange = route => {
     if(route==="home"){
       this.setState({isSignedin: true})
     } else {
