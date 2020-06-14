@@ -4,7 +4,7 @@ import '../Signin/Signin.css';
 const  Signin = ({onRouteChange}) => {
     return (
         <div className="center">
-            <div className="formCard center">
+            <div className="formCard regCard center">
                 <p className="titleHead">Register!</p>
                 <p className="labelIn">Name</p>
                 <input type="text"></input>
