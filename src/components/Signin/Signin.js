@@ -5,22 +5,36 @@ class Signin extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            username: "",
-            password: ""
+            logInUsername: "",
+            logInPassword: ""
         }
     }
 
     onUserInput = event => {
-        this.setState({username:event.target.value});
+        this.setState({logInUsername:event.target.value});
     }
 
     onPassInput = event => {
-        this.setState({password:event.target.value});
+        this.setState({logInPassword:event.target.value});
     }
 
     onButtonSubmit = () =>{
-        fetch("http://localhost:3000/signin");
-        this.props.onRouteChange("home");
+        fetch('http://localhost:3000/signin',{
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                username: this.state.logInUsername,
+                password: this.state.logInPassword
+            })
+        })
+        .then(resp=>resp.json())
+        .then(data=>{
+            if(data==="success"){
+                this.props.onRouteChange("home");
+            }
+        } 
+        )
+        
     }
 
     render(){
