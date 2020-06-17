@@ -1,7 +1,7 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import './Signin.css';
 
-class Signin extends React.Component {
+class Signin extends Component {
     constructor(props){
         super(props);
         this.state = {
