@@ -77,7 +77,9 @@ class Signin extends Component {
                     type="password"
                     onChange={this.onPassInput}
                     ></input>
-                <p className="signBtn signMargin" onClick={this.onButtonSubmit}><label className="signLabel">Sign In</label></p>
+                <div className="btns">
+                    <p className="signBtn btnMargin" onClick={this.onButtonSubmit}><label className="signLabel">Sign In</label></p>
+                </div>
                 </div>
                 <div className="errCard center">
                     <p className="errMess" 

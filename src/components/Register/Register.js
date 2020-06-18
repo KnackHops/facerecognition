@@ -10,12 +10,40 @@ class Register extends Component {
                 regEmail: "",
                 regName: "",
                 regPassword: ""
-            } 
+            },
+            panelRoute: "",
+            firstLabel: "",
+            secondLabel: "",
+            labelType: ""
         };
     }
 
+    componentDidMount(){
+        this.setState({
+            panelRoute: "first",
+            firstLabel: "Name",
+            secondLabel: "Email",
+            labelType: "email"
+        })
+    }
+
+    firstInputChange = (event) =>{
+        if(this.statementForPanel()){
+            this.setState({regName: event.target.value})
+        }else{
+            this.setState({regUsername: event.target.value})
+        }
+    }
+
+    secondInputChange = (event) =>{
+        if(this.statementForPanel()){
+            this.setState({regEmail: event.target.value})
+        }else{
+            this.setState({regPassword: event.target.value})
+        }
+    }
+
     onButtonSubmit = () =>{
-        console.log(this.state)
         const { regUsername, regEmail, regName, regPassword} = this.state.profile;
         fetch('http://localhost:3000/register', {
             method: "post",
@@ -37,18 +65,34 @@ class Register extends Component {
         })
     }
 
+    onButtonBack = () =>{
+
+    }
+
+    statementForPanel =()=>{
+        if(this.state.panelRoute==="first"){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
     render(){
+        const { firstLabel, secondLabel, labelType } = this.state;
         return (
-            <div className="center">
-                <div className="formCard regCard center">
+            <div className="bigCard center">
+                <div className="formCard center">
                     <p className="titleHead">Register!</p>
-                    <p className="labelIn">Name</p>
-                    <input type="text"></input>
-                    <p className="labelIn">Email</p>
-                    <input type="email"></input>
-                    <p className="labelIn">Password</p>
-                    <input type="password"></input>
-                <p className="signBtn" onClick={this.onButtonSubmit}><label className="signLabel">Register</label></p>
+                    <p className="labelIn">{firstLabel}</p>
+                    <input type="text"
+                    onChange={this.firstInputChange}
+                    ></input>
+                    <p className="labelIn">{secondLabel}</p>
+                    <input type={labelType}></input>
+                    <div className="btns">
+                        <p className="signBtn" onClick={this.onButtonSubmit}><label className="signLabel">Register</label></p>
+                        <p className="signBtn" onClick={this.onButtonSubmit}><label className="signLabel">Back</label></p>
+                    </div>
                 </div>
             </div>
         )
