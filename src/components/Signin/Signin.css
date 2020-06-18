@@ -5,10 +5,10 @@
 .formCard {
     box-shadow: 0 0 4px black;
     width: 30%;
-    margin-top: 2.5rem;
-    padding: .5rem 2.5rem;
+    padding: .5rem 1rem;
     flex-wrap: wrap;
     transition: all .25s;
+    margin-top: 8rem;
 }
 
 .errCard{
@@ -36,25 +36,37 @@
 }
 
 .titleHead {
+    margin: 1.75rem 0 auto 0;
+    color: rgba(0,0,0,.8);
+    text-shadow: 0 2px 2px rgba(255,255,255,.5);
     font-size: 3rem;
 }
 
 .labelIn {
+    color: rgba(0,0,0,.8);
+    text-shadow: 0 2px 2px rgba(255,255,255,.5);
     font-size: 1.2rem;
     width: 100%;
+    margin-top: .25rem;
+    margin-left: 1.5rem;
 }
 
 input {
     height: 2rem;
-    width: 80%;
+    width: 70%;
+    margin-left: 1.5rem;
+    margin-bottom: .75rem;
+}
+
+.btns {
+    display: flex;
 }
 
 .signBtn {
+    flex: 1 1 auto;
     font-size: 1.5rem;
-    width: 100%;
-    text-align: center;
+    margin: 2.5rem .75rem 1.75rem .75rem;
 }
-
 .signLabel {
     box-shadow: 0 0 3px black;
     background-color: rgba(0,0,0,.8);
@@ -67,8 +79,4 @@ input {
     background-color: white;
     color:black;
     cursor: pointer;
-}
-
-.signMargin {
-    margin-top: 7.55rem;
 }
