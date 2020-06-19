@@ -124,6 +124,7 @@ class Register extends Component {
     }
 
     onButtonBack = () =>{
+        console.log("back off");
     }
 
     clearText = ()=>{
