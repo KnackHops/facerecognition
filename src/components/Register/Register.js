@@ -23,7 +23,7 @@ class Register extends Component {
             panelRoute: "first",
             firstLabel: "Name",
             secondLabel: "Email",
-            labelType: "email"
+            labelType: "emails"
         })
     }
 
