@@ -8,9 +8,12 @@ class Signin extends Component {
             logInUsername: "",
             logInPassword: "",
             logInStatus: "",
-            logInColor: "",
-            boxParam: 0
+            logInClass: ""
         }
+    }
+
+    componentDidMount(){
+        this.setState({logInClass: "errMess"});
     }
 
     onUserInput = event => {
@@ -44,14 +47,12 @@ class Signin extends Component {
 
     logInStatFail = data =>{
         this.setState({
-            logInStatus:data,
-            logInColor: "rgba(255,0,0,.7)",
-            boxParam: 4
+            logInClass: "errMess errMessActive",
+            logInStatus:data
         });
         setTimeout(()=>{
             this.setState({
-                logInColor: "",
-                boxParam: 0,
+                logInClass:"errMess"
             });
             setTimeout(()=>{
                 this.setState({
@@ -62,7 +63,7 @@ class Signin extends Component {
     }
 
     render(){
-        const { boxParam,logInStatus,logInColor } = this.state;
+        const { logInStatus, logInClass } = this.state;
         return (
             <div className="bigCard center">
                 <div className="formCard center">
@@ -82,13 +83,7 @@ class Signin extends Component {
                 </div>
                 </div>
                 <div className="errCard center">
-                    <p className="errMess" 
-                    style={
-                        {
-                            boxShadow:`0 0 ${boxParam}px black`,
-                            backgroundColor: logInColor
-                        }
-                        }>{logInStatus}</p>
+                    <p className={logInClass}>{logInStatus}</p>
                 </div>
             </div>
         )

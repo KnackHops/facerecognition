@@ -23,6 +23,11 @@
     transition: all .15s;
 }
 
+.errMessActive{
+    box-shadow: 0 0 4px black;
+    background-color: rgba(255,0,0,.7);
+}
+
 @media only screen and (max-width: 1400px) {
     .formCard{
         width: 50%;
@@ -67,6 +72,12 @@ input {
     font-size: 1.5rem;
     margin: 2.5rem .75rem 1.75rem .75rem;
 }
+
+.signInactive {
+    font-size: 0;
+    padding: 0;
+}
+
 .signLabel {
     box-shadow: 0 0 3px black;
     background-color: rgba(0,0,0,.8);
