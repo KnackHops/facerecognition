@@ -110,6 +110,7 @@ class Register extends Component {
             .then(data=>{
                 if(data.name===regName){
                     console.log(data)
+                    this.props.onLoadUser(data);
                     this.props.onRouteChange("home")
                 }else{
                     this.registerFail("Database Error!")
