@@ -94,12 +94,7 @@ class Register extends Component {
     onSuccessSubmit = ()=>{
         const { regUsername, regEmail, regName, regPassword} = this.state.profile;
         if(this.statementForPanel()){
-            this.setState({
-                firstLabel: "Username",
-                secondLabel: "Password",
-                labelType: "password",
-                panelRoute: "second"
-            })
+            this.statementForState();
             this.clearText();
         } else {
             fetch('http://localhost:3000/register', {
@@ -124,12 +119,35 @@ class Register extends Component {
     }
 
     onButtonBack = () =>{
-        console.log("back off");
+        this.statementForState();
+        this.clearText();
     }
 
     clearText = ()=>{
         document.getElementById("clrInput1").value="";
         document.getElementById("clrInput2").value="";
+    }
+
+    statementForState = () =>{
+        if(this.state.panelRoute==="first"){
+            this.setState({
+                firstLabel: "Username",
+                secondLabel: "Password",
+                labelType: "password",
+                panelRoute: "second",
+                btnClass: "signLabel",
+                btnLabel: "Back"
+            })
+        } else{
+            this.setState({
+                firstLabel: "Name",
+                secondLabel: "Email",
+                labelType: "email",
+                panelRoute: "first",
+                btnClass: "",
+                btnLabel: ""
+            })
+        }
     }
 
     statementForPanel =()=>{
