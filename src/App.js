@@ -41,6 +41,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      user: "",
       input: "",
       inputURL: "",
       box: {},
@@ -89,20 +90,24 @@ class App extends Component {
     this.setState({route});
   }
 
+  onLoadUser = (userProfile) => {
+    this.setState({user: userProfile})
+  }
+
   render() {
-    const {inputURL, box, route,isSignedin } = this.state;
+    const {inputURL, box, route, isSignedin, user } = this.state;
     return (
       <div>
         <Particles className={classNameForParticool} params={paramsForParticool}/>
         <Navigation isSignedin={isSignedin} onRouteChange={this.onRouteChange} route={route} />
         {
         route==="signin" ?
-          <Signin onRouteChange={this.onRouteChange}/>
+          <Signin onRouteChange={this.onRouteChange} onLoadUser={this.onLoadUser}/>
         : (route==="register" ?
-        <Register onRouteChange={this.onRouteChange}/> :
+        <Register onRouteChange={this.onRouteChange} onLoadUser={this.onLoadUser}/> :
         <React.Fragment>
         <Logo />
-        <Rank />
+        <Rank name={user.name} rank={user.rank}/>
         <InputRecognition onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
         <FaceRecognition inputURL={inputURL} box={box}/>
       </React.Fragment>

@@ -35,10 +35,11 @@ class Signin extends Component {
         })
         .then(resp=>resp.json())
         .then(data=>{
-            if(data==="success"){
+            if(data.username===this.state.logInUsername){
+                this.props.onLoadUser(data);
                 this.props.onRouteChange("home");
             }else{
-                this.logInStatFail(data);
+                this.logInStatFail("User not Found");
             }
         } 
         )
