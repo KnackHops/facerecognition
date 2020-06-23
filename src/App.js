@@ -41,7 +41,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: "",
+      user: {},
       input: "",
       inputURL: "",
       box: {},
@@ -75,6 +75,13 @@ class App extends Component {
 
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
       (response) => {
+        fetch("http://localhost:3000/image",{
+          method: 'put',
+          headers: {'Content-type': 'application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
+          })
+        })
         this.displayFaceRecognition(this.calculateDataImage(response.rawData.outputs[0].data.regions[0].region_info.bounding_box))
     }
       ).catch(err => console.log(err));
@@ -107,7 +114,7 @@ class App extends Component {
         <Register onRouteChange={this.onRouteChange} onLoadUser={this.onLoadUser}/> :
         <React.Fragment>
         <Logo />
-        <Rank name={user.name} rank={user.rank}/>
+        <Rank name={user.name} rank={user.entries}/>
         <InputRecognition onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
         <FaceRecognition inputURL={inputURL} box={box}/>
       </React.Fragment>

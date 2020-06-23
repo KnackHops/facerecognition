@@ -6,7 +6,7 @@ class Rank extends Component{
         super(props);
         this.state = {
             name: "",
-            rank: ""
+            entries: ""
         }
     }
 
@@ -18,10 +18,10 @@ class Rank extends Component{
         return (
             <div>
                 <div className="center topLabel">
-                    {`${this.state.name}! Your current rank is...`}
+                    {`${this.state.name}! Your current entry is...`}
                 </div>
                 <div className="center actualRank">
-                    {this.state.rank}
+                    {this.state.entries}
                 </div>
             </div>
         )
