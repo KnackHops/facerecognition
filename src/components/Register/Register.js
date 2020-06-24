@@ -36,38 +36,18 @@ class Register extends Component {
     firstInputChange = (event) =>{
         event.persist();
         if(this.statementForPanel()){
-            this.setState(prevState => ({
-                profile: {
-                    ...prevState.profile,
-                    regName: event.target.value
-                }
-            }))
+            Object.assign(this.state.profile, {regName: event.target.value});
         }else{
-            this.setState(prevState => ({
-                profile: {
-                    ...prevState.profile,
-                    regUsername: event.target.value
-                }
-            }))
+            Object.assign(this.state.profile, {regUsername: event.target.value});
         }
     }
 
     secondInputChange = (event) =>{
         event.persist();
         if(this.statementForPanel()){
-            this.setState(prevState=>({
-                profile: {
-                    ...prevState.profile,
-                    regEmail: event.target.value
-                }
-            }))
+            Object.assign(this.state.profile, {regEmail: event.target.value});
         }else{
-            this.setState(prevState=>({
-                profile: {
-                    ...prevState.profile,
-                    regPassword: event.target.value
-                }
-            }))
+            Object.assign(this.state.profile, {regPassword: event.target.valuie});
         }
     }
 

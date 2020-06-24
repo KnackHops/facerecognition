@@ -12,7 +12,7 @@ import './App.css';
 
 
 const app = new Clarifai.App({
-  apiKey: '70d84c2185f745b3bcfe966feaadf1a6'
+  apiKey: '4eda86bd8e624e88ae44ca8c2a752301'
 })
 
 const classNameForParticool = "Particool";
@@ -41,7 +41,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: "",
+      user: {},
       input: "",
       inputURL: "",
       box: {},
@@ -73,8 +73,27 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({inputURL: this.state.input})
 
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
-      (response) => {
+    app.models
+    .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+    .then(response => {
+      if(response){
+        fetch("http://localhost:3000/image",{
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
+          })
+        })
+        .then(resp => resp.json())
+        .then(entryUpdate=> {
+          this.setState(prevState => ({
+            user: {
+              ...prevState.user,
+              entries: entryUpdate
+            }
+          }))
+        })
+      }
         this.displayFaceRecognition(this.calculateDataImage(response.rawData.outputs[0].data.regions[0].region_info.bounding_box))
     }
       ).catch(err => console.log(err));
@@ -82,6 +101,7 @@ class App extends Component {
 
   onRouteChange = route => {
     if(route==="home"){
+      console.log(this.state.user);
       this.setState({isSignedin: true})
     } else {
       this.setState({isSignedin: false})
@@ -91,7 +111,15 @@ class App extends Component {
   }
 
   onLoadUser = (userProfile) => {
-    this.setState({user: userProfile})
+    this.setState({user: {
+        id: userProfile.id,
+        username: userProfile.username,
+        name: userProfile.name,
+        email: userProfile.email,
+        entries: userProfile.entries,
+        joined: userProfile.joined
+    }})
+    console.log(this.state.user.profile);
   }
 
   render() {
@@ -107,7 +135,7 @@ class App extends Component {
         <Register onRouteChange={this.onRouteChange} onLoadUser={this.onLoadUser}/> :
         <React.Fragment>
         <Logo />
-        <Rank name={user.name} rank={user.rank}/>
+        <Rank name={user.name} entries={user.entries}/>
         <InputRecognition onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
         <FaceRecognition inputURL={inputURL} box={box}/>
       </React.Fragment>
