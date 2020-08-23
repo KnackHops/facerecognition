@@ -16,6 +16,9 @@ class Register extends Component {
             firstLabel: "",
             secondLabel: "",
             labelType: "",
+            btnClass: "",
+            btnReg: "",
+            btnLabel: "",
             errInStatus: "",
             errInClass: ""
         };
@@ -27,8 +30,7 @@ class Register extends Component {
             firstLabel: "Name",
             secondLabel: "Email",
             labelType: "email",
-            btnClass: "",
-            btnLabel: "",
+            btnReg: "Proceed",
             errInClass: "errMess"
         })
     }
@@ -47,7 +49,7 @@ class Register extends Component {
         if(this.statementForPanel()){
             Object.assign(this.state.profile, {regEmail: event.target.value});
         }else{
-            Object.assign(this.state.profile, {regPassword: event.target.valuie});
+            Object.assign(this.state.profile, {regPassword: event.target.value});
         }
     }
 
@@ -83,17 +85,17 @@ class Register extends Component {
                 body: JSON.stringify({
                     username:  regUsername,
                     name: regName,
-                 email: regEmail,
+                    email: regEmail,
                     password: regPassword
             })
-            }).then(resp=>resp.json())
+            })
+            .then(resp=>resp.json())
             .then(data=>{
                 if(data.name===regName){
-                    console.log(data)
                     this.props.onLoadUser(data);
                     this.props.onRouteChange("home")
                 }else{
-                    this.registerFail("Database Error!")
+                    this.registerFail(data);
                 }
             })
         }
@@ -117,6 +119,7 @@ class Register extends Component {
                 labelType: "password",
                 panelRoute: "second",
                 btnClass: "signLabel",
+                btnReg: "Register",
                 btnLabel: "Back"
             })
         } else{
@@ -125,6 +128,7 @@ class Register extends Component {
                 secondLabel: "Email",
                 labelType: "email",
                 panelRoute: "first",
+                btnReg: "Proceed",
                 btnClass: "",
                 btnLabel: ""
             })
@@ -157,7 +161,7 @@ class Register extends Component {
     }
 
     render(){
-        const { firstLabel, secondLabel, labelType, btnClass, btnLabel, errInClass, errInStatus} = this.state;
+        const { firstLabel, secondLabel, labelType, btnClass, btnReg, btnLabel, errInClass, errInStatus} = this.state;
         return (
             <div className="bigCard center">
                 <div className="formCard center">
@@ -175,7 +179,7 @@ class Register extends Component {
                     <div className="btns">
                         <p className="signBtn" 
                         onClick={this.onButtonSubmit}>
-                            <label className="signLabel">Register</label>
+                            <label className="signLabel">{btnReg}</label>
                         </p>
                         <p className="signBtn" onClick={this.onButtonBack}>
                             <label className={btnClass}>{btnLabel}</label>
