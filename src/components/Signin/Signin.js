@@ -25,6 +25,7 @@ class Signin extends Component {
     }
 
     onButtonSubmit = () =>{
+        
         fetch('http://localhost:3000/signin',{
             method: 'post',
             headers: {'Content-Type': 'application/json'},
@@ -35,7 +36,7 @@ class Signin extends Component {
         })
         .then(resp=>resp.json())
         .then(data=>{
-            if(data.username===this.state.logInUsername){
+            if(data.username){
                 this.props.onLoadUser(data);
                 this.props.onRouteChange("home");
             }else{
