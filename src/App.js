@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
@@ -9,11 +8,6 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 import './App.css';
-
-
-const app = new Clarifai.App({
-  apiKey: '4eda86bd8e624e88ae44ca8c2a752301'
-})
 
 const classNameForParticool = "Particool";
 
@@ -37,17 +31,19 @@ const paramsForParticool = {
   }
 }
 
+const initialState = {
+  user: {},
+  input: "",
+  inputURL: "",
+  box: {},
+  route: "signin",
+  isSignedin: false
+};
+
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      user: {},
-      input: "",
-      inputURL: "",
-      box: {},
-      route: "signin",
-      isSignedin: false
-    }
+    this.state = initialState
   }
 
   calculateDataImage = ({top_row, left_col, right_col, bottom_row}) => {
@@ -71,10 +67,15 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
-    this.setState({inputURL: this.state.input})
+    this.setState({inputURL: this.state.input});
 
-    app.models
-    .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+    fetch("http://localhost:3000/imageapi",{
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        input: this.state.input
+      })})
+    .then(response => response.json())
     .then(response => {
       if(response){
         fetch("http://localhost:3000/image",{
@@ -104,7 +105,7 @@ class App extends Component {
       console.log(this.state.user);
       this.setState({isSignedin: true})
     } else {
-      this.setState({isSignedin: false})
+      this.setState(initialState)
     }
 
     this.setState({route});
